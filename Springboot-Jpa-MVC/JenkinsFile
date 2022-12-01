@@ -1,0 +1,20 @@
+pipeline{
+    
+    agent any
+    stages {
+        stage('Build') {
+        steps {
+        echo 'Building...'
+           sh 'mvn pom.xml -B -o -f Springboot-Jpa-MVC/pom.xml -Dds.ignoreValidationErrors=true clean install'
+        }
+        }
+        stage('Zip the artifact'){
+        steps {
+            zip dir: 'Springboot-Jpa-MVC/src/target', archive:true, zipFile: 'mvc.zip'
+            
+        }
+            
+        }
+
+    }
+}
